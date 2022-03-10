@@ -27,63 +27,64 @@ export default function Chapter() {
     });
   }
 
+  //**********   GET DATA FORM API  **********
   //get all info (name comic, num chapter ,update time comic ,list chapter use for control change chap ...)
-  const fetchInfoChapter = async () => {
-    try {
-      setIsLoading(true);
-      const allInfo = await getInfoChapterComic(
-        `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`,
-        `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}`
-      );
-      setInfoChapter(allInfo);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //get all list chapter use for select option chap
-  const fetchListSelectChap = async () => {
-    try {
-      const allList = await getListSelect(`${process.env.REACT_APP_API}/truyen-tranh/${nameComic}`);
-      setAllListChap(allList);
-      listOptionOfSelect.current = allList;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  //get all images comic
-  const fetchChapterComic = async () => {
-    try {
-      setIsLoading(true);
-      //get all src imgs
-      const allSrcImgs = await getChapterComic(
-        `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`
-      );
-      //convert all image to base64 with api
-      const responseData = await axios.post(`http://localhost:4000/get-images`, {
-        urls: allSrcImgs,
-        origin: process.env.REACT_APP_API,
-      });
-      setChapters(responseData.data.data);
-      setIsLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    fetchChapterComic();
-  }, [nameComic, chapId, hashId]);
-
-  useEffect(() => {
+    const fetchInfoChapter = async () => {
+      try {
+        setIsLoading(true);
+        const allInfo = await getInfoChapterComic(
+          `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`,
+          `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}`
+        );
+        setInfoChapter(allInfo);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchInfoChapter();
   }, [nameComic, chapId, hashId]);
 
+  //get all images comic
   useEffect(() => {
+    const fetchChapterComic = async () => {
+      try {
+        setIsLoading(true);
+        //get all src imgs
+        const allSrcImgs = await getChapterComic(
+          `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`
+        );
+        //convert all image to base64 with api
+        const responseData = await axios.post(`http://localhost:4000/get-images`, {
+          urls: allSrcImgs,
+          origin: process.env.REACT_APP_API,
+        });
+        setChapters(responseData.data.data);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchChapterComic();
+  }, [nameComic, chapId, hashId]);
+
+  //get all list chapter use for select option chap
+  useEffect(() => {
+    const fetchListSelectChap = async () => {
+      try {
+        const allList = await getListSelect(
+          `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}`
+        );
+        setAllListChap(allList);
+        listOptionOfSelect.current = allList;
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchListSelectChap();
   }, []);
+  //**********  END GET DATA FORM API  **********
 
   //change chapter when use option of select
   const handleChangeSelect = (selectedOption) => {
@@ -144,15 +145,18 @@ export default function Chapter() {
         </div>
         {/* load all images or animation loading */}
         <div className='readingDetail'>
-          {isLoading ||
-            (chapters &&
-              chapters.map((chapter, index) => {
-                return (
-                  <div key={index}>
-                    <img src={chapter.url} alt='' />
-                  </div>
-                );
-              })) || <img src={loadingAnimation} width={150} style={{ margin: "0 auto" }} alt='' />}
+          {isLoading ? (
+            <img src={loadingAnimation} width={150} style={{ margin: "0 auto" }} alt='' />
+          ) : (
+            chapters &&
+            chapters.map((chapter, index) => {
+              return (
+                <div key={index}>
+                  <img src={chapter.url} alt='' />
+                </div>
+              );
+            })
+          )}
         </div>
 
         <div className='chapter-bottom'>
