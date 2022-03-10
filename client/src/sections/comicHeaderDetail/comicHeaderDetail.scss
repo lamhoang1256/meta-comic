@@ -1,0 +1,82 @@
+.comicDetail {
+  &-name {
+    margin: 20px 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.4rem;
+  }
+  &-container {
+    display: flex;
+    gap: 0 50px;
+    @media screen and (max-width: 767.98px) {
+      flex-direction: column;
+      gap: 20px 0;
+    }
+  }
+  &-thumb {
+    img {
+      max-width: 185px;
+      border-radius: 8px;
+      margin-top: 10px;
+      @media screen and (max-width: 767.98px) {
+        margin: 0 auto;
+      }
+    }
+  }
+  &-author,
+  &-type,
+  &-status,
+  &-view,
+  &-score {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    h3 {
+      margin-right: 10px;
+    }
+    .label {
+      font-size: 1.3rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #fff;
+    }
+  }
+  &-author {
+    .label {
+      background: linear-gradient(135deg, #f5515f 0%, #a1051d 100%);
+    }
+  }
+  &-type {
+    flex-wrap: wrap;
+    gap: 10px;
+    .label {
+      background: linear-gradient(135deg, #179fcf 0%, #2c4ff7 100%);
+    }
+  }
+  &-status {
+    .label {
+      background-color: #fbb034;
+    }
+    .label.completed {
+      background: linear-gradient(135deg, #42e695 0%, #3bb2b8 100%);
+    }
+  }
+  &-view {
+    .label {
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      background-image: linear-gradient(135deg, #09203f 0%, #537895 100%);
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+  }
+  &-score {
+    gap: 0 10px;
+    ion-icon {
+      cursor: pointer;
+      color: #dabd18b2;
+      font-size: 2rem;
+    }
+  }
+}

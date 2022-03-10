@@ -1,0 +1,19 @@
+.comic-list {
+  display: grid;
+  gap: 30px 20px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+@media screen and (max-width: 767.98px) {
+  .comic-list {
+    display: grid;
+    gap: 20px 10px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+.breadcum {
+  margin: 20px 0;
+  padding: 10px 20px;
+  border-radius: 6px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #fff;
+}

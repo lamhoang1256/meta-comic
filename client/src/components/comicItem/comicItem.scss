@@ -1,0 +1,59 @@
+@use "../../sass/app.scss" as *;
+
+.comic {
+  &-thumbnail {
+    img {
+      border-radius: 6px;
+      width: 100%;
+      height: 240px;
+    }
+  }
+  &-name {
+    height: 50px;
+    margin-top: 8px;
+    font-weight: 600;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  &-rate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-favorite,
+  &-view {
+    margin: 5px 0;
+    display: flex;
+    gap: 0 4px;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.3rem;
+    ion-icon {
+      font-size: 1.4rem;
+    }
+  }
+  &-favorite {
+    width: 50%;
+    color: $red-color;
+  }
+  &-view {
+    color: #c09853;
+    ion-icon {
+      font-size: 1.6rem;
+    }
+  }
+  &-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-timeago {
+    color: $gray-light;
+    font-size: 1.4rem;
+  }
+  &-chapter {
+    font-size: 1.4rem;
+  }
+}

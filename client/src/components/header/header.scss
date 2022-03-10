@@ -1,0 +1,37 @@
+@use "../../sass/app.scss" as *;
+.header {
+  background-color: #fff;
+  &-container {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  &-logo {
+    color: #3d6ef7;
+  }
+  &-search {
+    width: 300px;
+    height: 45px;
+    border-radius: 25px;
+    background-color: #ecf0f4;
+    display: flex;
+    overflow: hidden;
+    &:hover {
+      outline: 1px solid $primary-color;
+    }
+  }
+  &-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+  }
+}
