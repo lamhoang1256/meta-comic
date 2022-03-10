@@ -32,13 +32,13 @@ export default function Chapter() {
   useEffect(() => {
     const fetchInfoChapter = async () => {
       try {
-        setIsLoading(true);
+        // setIsLoading(true);
         const allInfo = await getInfoChapterComic(
           `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`,
           `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}`
         );
         setInfoChapter(allInfo);
-        setIsLoading(false);
+        // setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
@@ -56,18 +56,18 @@ export default function Chapter() {
           `${process.env.REACT_APP_API}/truyen-tranh/${nameComic}/${chapId}/${hashId}`
         );
         //convert all image to base64 with api
-        const responseData = await axios.post(`http://localhost:4000/get-images`, {
+        const responseData = await axios.post(`${process.env.REACT_APP_BE}/get-images`, {
           urls: allSrcImgs,
           origin: process.env.REACT_APP_API,
         });
-        setChapters(responseData.data.data);
+        await setChapters(responseData.data.data);
         setIsLoading(false);
       } catch (err) {
         console.log(err);
       }
     };
     fetchChapterComic();
-  }, [nameComic, chapId, hashId]);
+  }, [nameComic, indexChap, chapId, hashId]);
 
   //get all list chapter use for select option chap
   useEffect(() => {
@@ -159,26 +159,30 @@ export default function Chapter() {
           )}
         </div>
 
-        <div className='chapter-bottom'>
-          <div className='chapter-control'>
-            <button className='chapter-prev chapter-button' onClick={handlePrevChap}>
-              <ion-icon name='chevron-back-outline'></ion-icon> Prev
-            </button>
+        {isLoading ? (
+          " "
+        ) : (
+          <div className='chapter-bottom'>
+            <div className='chapter-control'>
+              <button className='chapter-prev chapter-button' onClick={handlePrevChap}>
+                <ion-icon name='chevron-back-outline'></ion-icon> Prev
+              </button>
 
-            {/* react-select use for change chap */}
-            {listOptionOfSelect.current && (
-              <Dropdown
-                listOptionOfSelect={listOptionOfSelect}
-                eventOnChange={handleChangeSelect}
-                indexChap={indexChap}
-              ></Dropdown>
-            )}
+              {/* react-select use for change chap */}
+              {listOptionOfSelect.current && (
+                <Dropdown
+                  listOptionOfSelect={listOptionOfSelect}
+                  eventOnChange={handleChangeSelect}
+                  indexChap={indexChap}
+                ></Dropdown>
+              )}
 
-            <button className='chapter-prev chapter-button' onClick={handleNextChap}>
-              Next <ion-icon name='chevron-forward-outline'></ion-icon>
-            </button>
+              <button className='chapter-prev chapter-button' onClick={handleNextChap}>
+                Next <ion-icon name='chevron-forward-outline'></ion-icon>
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ export default function ComicTopAllList() {
   const comicListElement = useRef();
 
   const baseUrl = `${process.env.REACT_APP_API}/hot`;
-  console.log(baseUrl);
   //function get all list TOP comics
   const fetchData = async () => {
     try {
